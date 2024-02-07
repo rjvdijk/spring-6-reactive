@@ -37,4 +37,10 @@ public class BeerController {
                         .build());
     }
 
+    @PutMapping(BEER_PATH_ID)
+    ResponseEntity<Void> updateExistingBeer(@PathVariable("beerId") Integer beerId, @RequestBody BeerDTO beerDTO) {
+        beerService.updateBeer(beerId, beerDTO).subscribe();
+        return ResponseEntity.ok().build();
+    }
+
 }
