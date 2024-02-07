@@ -27,7 +27,7 @@ public class BootstrapData implements CommandLineRunner {
     private void loadBeerData() {
         beerRepository.count().subscribe(count -> {
             if (count == 0) {
-                Beer beer1 = Beer.builder()
+                beerRepository.save(Beer.builder()
                         .beerName("Galaxy Cat")
                         .beerStyle("Pale Ale")
                         .upc("12356")
@@ -35,9 +35,10 @@ public class BootstrapData implements CommandLineRunner {
                         .quantityOnHand(122)
                         .createdDate(LocalDateTime.now())
                         .lastModifiedDate(LocalDateTime.now())
-                        .build();
+                        .build())
+                        .subscribe();
 
-                Beer beer2 = Beer.builder()
+                beerRepository.save(Beer.builder()
                         .beerName("Crank")
                         .beerStyle("Pale Ale")
                         .upc("12356222")
@@ -45,9 +46,10 @@ public class BootstrapData implements CommandLineRunner {
                         .quantityOnHand(392)
                         .createdDate(LocalDateTime.now())
                         .lastModifiedDate(LocalDateTime.now())
-                        .build();
+                        .build())
+                        .subscribe();
 
-                Beer beer3 = Beer.builder()
+                beerRepository.save(Beer.builder()
                         .beerName("Sunshine City")
                         .beerStyle("IPA")
                         .upc("12356")
@@ -55,11 +57,8 @@ public class BootstrapData implements CommandLineRunner {
                         .quantityOnHand(144)
                         .createdDate(LocalDateTime.now())
                         .lastModifiedDate(LocalDateTime.now())
-                        .build();
-
-                beerRepository.save(beer1).subscribe();
-                beerRepository.save(beer2).subscribe();
-                beerRepository.save(beer3).subscribe();
+                        .build())
+                        .subscribe();
             }
         });
     }
