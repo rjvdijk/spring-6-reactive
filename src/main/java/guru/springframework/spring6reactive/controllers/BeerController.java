@@ -29,7 +29,7 @@ public class BeerController {
     }
 
     @PostMapping(BEER_PATH)
-    Mono<ResponseEntity<Void>> createNewBeer(BeerDTO beerDTO) {
+    Mono<ResponseEntity<Void>> createNewBeer(@RequestBody BeerDTO beerDTO) {
         return beerService.saveNewBeer(beerDTO)
                 .map(savedDto -> ResponseEntity.created(UriComponentsBuilder
                                 .fromHttpUrl("http://localhost:8080/" + BEER_PATH + "/" + savedDto.getId())

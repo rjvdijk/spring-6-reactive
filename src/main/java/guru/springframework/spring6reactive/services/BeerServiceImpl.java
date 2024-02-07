@@ -17,12 +17,14 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public Flux<BeerDTO> listBeers() {
-        return beerRepository.findAll().map(beerMapper::beerToBeerDto);
+        return beerRepository.findAll()
+                .map(beerMapper::beerToBeerDto);
     }
 
     @Override
-    public Mono<BeerDTO> getBeerById(final Integer beerId) {
-        return beerRepository.findById(beerId).map(beerMapper::beerToBeerDto);
+    public Mono<BeerDTO> getBeerById(Integer beerId) {
+        return beerRepository.findById(beerId)
+                .map(beerMapper::beerToBeerDto);
     }
 
     @Override
