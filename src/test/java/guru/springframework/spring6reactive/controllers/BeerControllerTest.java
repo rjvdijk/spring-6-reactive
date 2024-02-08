@@ -1,11 +1,15 @@
 package guru.springframework.spring6reactive.controllers;
 
+import guru.springframework.spring6reactive.domain.Beer;
 import guru.springframework.spring6reactive.model.BeerDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
+
+import java.math.BigDecimal;
 
 @SpringBootTest
 @AutoConfigureWebTestClient
@@ -30,7 +34,26 @@ class BeerControllerTest {
                 .expectStatus().isOk()
                 .expectHeader().valueEquals("Content-type", "application/json")
                 .expectBody(BeerDTO.class);
+    }
 
+    @Test
+    void testCreateBeer() {
+        webTestClient.post().uri(BeerController.BEER_PATH)
+                .body(Mono.just(getTestBeer()), BeerDTO.class)
+                .header("Content-type", "application/json")
+                .exchange()
+                .expectStatus().isCreated()
+                .expectHeader().location("http://localhost:8080" + BeerController.BEER_PATH + "/4");
+    }
+
+    private Beer getTestBeer() {
+        return Beer.builder()
+                .beerName("Space Dust")
+                .beerStyle("IPA")
+                .price(BigDecimal.TEN)
+                .quantityOnHand(12)
+                .upc("123213")
+                .build();
     }
 
 }
