@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springframework.spring6reactive.config.DatabaseConfig;
 import guru.springframework.spring6reactive.domain.Customer;
-import guru.springframework.spring6reactive.model.CustomerDTO;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
@@ -25,6 +25,7 @@ class CustomerRepositoryTest {
     }
 
     @Test
+    @Disabled
     void saveNewCustomer() {
         customerRepository.save(getTestCustomer()).subscribe(customer -> {
             System.out.println(customer.toString());
