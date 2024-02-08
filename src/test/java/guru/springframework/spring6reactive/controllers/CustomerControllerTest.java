@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -21,7 +22,7 @@ public class CustomerControllerTest {
     WebTestClient webTestClient;
 
     @Test
-    @Order(1)
+    @Order(20)
     void testListCustomers() {
         webTestClient.get()
                 .uri(CustomerController.CUSTOMER_PATH)
@@ -32,7 +33,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @Order(2)
+    @Order(10)
     void testGetById() {
         webTestClient.get()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 1)
@@ -43,7 +44,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @Order(3)
+    @Order(30)
     void testCreateCustomer() {
         webTestClient.post()
                 .uri(CustomerController.CUSTOMER_PATH)
@@ -55,7 +56,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @Order(4)
+    @Order(40)
     void testUpdateCustomer() {
         webTestClient.put()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 1)
@@ -66,7 +67,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @Order(5)
+    @Order(50)
     void testPatchCustomer() {
         webTestClient.patch()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 1)

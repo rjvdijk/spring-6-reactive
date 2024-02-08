@@ -1,6 +1,5 @@
 package guru.springframework.spring6reactive.controllers;
 
-import guru.springframework.spring6reactive.domain.Beer;
 import guru.springframework.spring6reactive.model.BeerDTO;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -23,7 +22,7 @@ class BeerControllerTest {
     WebTestClient webTestClient;
 
     @Test
-    @Order(2)
+    @Order(20)
     void testListBeers() {
         webTestClient.get()
                 .uri(BeerController.BEER_PATH)
@@ -34,7 +33,7 @@ class BeerControllerTest {
     }
 
     @Test
-    @Order(1)
+    @Order(10)
     void testGetByid() {
         webTestClient.get()
                 .uri(BeerController.BEER_PATH_ID, 1)
@@ -45,11 +44,11 @@ class BeerControllerTest {
     }
 
     @Test
-    @Order(3)
+    @Order(30)
     void testCreateBeer() {
         webTestClient.post()
                 .uri(BeerController.BEER_PATH)
-                .body(Mono.just(getTestBeer()), BeerDTO.class)
+                .body(Mono.just(getTestBeerDTO()), BeerDTO.class)
                 .header("Content-type", "application/json")
                 .exchange()
                 .expectStatus().isCreated()
@@ -57,22 +56,35 @@ class BeerControllerTest {
     }
 
     @Test
-    @Order(4)
+    @Order(31)
+    void testCreateBeerBadData() {
+        BeerDTO testBeerDTO = getTestBeerDTO();
+        testBeerDTO.setBeerName("");
+        webTestClient.post()
+                .uri(BeerController.BEER_PATH)
+                .body(Mono.just(testBeerDTO), BeerDTO.class)
+                .header("Content-type", "application/json")
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @Test
+    @Order(40)
     void testUpdateBeer() {
         webTestClient.put()
                 .uri(BeerController.BEER_PATH_ID, 1)
-                .body(Mono.just(getTestBeer()), BeerDTO.class)
+                .body(Mono.just(getTestBeerDTO()), BeerDTO.class)
                 .header("Content-type", "application/json")
                 .exchange()
                 .expectStatus().isNoContent();
     }
 
     @Test
-    @Order(5)
+    @Order(50)
     void testPatchBeer() {
         webTestClient.patch()
                 .uri(BeerController.BEER_PATH_ID, 1)
-                .body(Mono.just(getTestBeer()), BeerDTO.class)
+                .body(Mono.just(getTestBeerDTO()), BeerDTO.class)
                 .header("Content-type", "application/json")
                 .exchange()
                 .expectStatus().isNoContent();
@@ -87,8 +99,8 @@ class BeerControllerTest {
                 .expectStatus().isNoContent();
     }
 
-    private Beer getTestBeer() {
-        return Beer.builder()
+    private BeerDTO getTestBeerDTO() {
+        return BeerDTO.builder()
                 .beerName("Space Dust")
                 .beerStyle("IPA")
                 .price(BigDecimal.TEN)
