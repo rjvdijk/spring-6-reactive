@@ -1,13 +1,10 @@
 GET http://localhost:8080/api/v2/beer/1
 #POST http://localhost:8080/api/v2/beer
 #PUT http://localhost:8080/api/v2/beer/1
+#PATCH http://localhost:8080/api/v2/beer/1
 Accept: application/json
 Content-Type: application/json
 
 {
-  "beerName": "Very Cool Galaxy Cat",
-  "beerStyle": "Pale Ale",
-  "upc": "12356",
-  "quantityOnHand": 122,
-  "price": 13
+  "quantityOnHand": 3
 }
