@@ -55,6 +55,14 @@ class BeerControllerTest {
                 .expectStatus().isNoContent();
     }
 
+    @Test
+    void testDeleteBeer() {
+        webTestClient.delete()
+                .uri(BeerController.BEER_PATH_ID, 1)
+                .exchange()
+                .expectStatus().isNoContent();
+    }
+
     private Beer getTestBeer() {
         return Beer.builder()
                 .beerName("Space Dust")
