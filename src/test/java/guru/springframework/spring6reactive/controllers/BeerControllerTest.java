@@ -46,6 +46,15 @@ class BeerControllerTest {
                 .expectHeader().location("http://localhost:8080" + BeerController.BEER_PATH + "/4");
     }
 
+    @Test
+    void testUpdateBeer() {
+        webTestClient.put().uri(BeerController.BEER_PATH_ID, 1)
+                .body(Mono.just(getTestBeer()), BeerDTO.class)
+                .header("Content-type", "application/json")
+                .exchange()
+                .expectStatus().isNoContent();
+    }
+
     private Beer getTestBeer() {
         return Beer.builder()
                 .beerName("Space Dust")
