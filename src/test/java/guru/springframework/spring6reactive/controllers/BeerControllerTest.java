@@ -64,7 +64,7 @@ class BeerControllerTest {
     }
 
     @Test
-    void testCreateBeerBadData() {
+    void testCreateBeerBadRequest() {
         BeerDTO testBeerDTO = getTestBeerDTO();
         testBeerDTO.setBeerName("");
         webTestClient.post()
