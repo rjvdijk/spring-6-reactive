@@ -80,6 +80,19 @@ class BeerControllerTest {
     }
 
     @Test
+    @Order(41)
+    void testUpdateBeerBadRequest() {
+        BeerDTO testBeerDto = getTestBeerDTO();
+        testBeerDto.setBeerStyle("");
+        webTestClient.put()
+                .uri(BeerController.BEER_PATH_ID, 1)
+                .body(Mono.just(testBeerDto), BeerDTO.class)
+                .header("Content-type", "application/json")
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @Test
     @Order(50)
     void testPatchBeer() {
         webTestClient.patch()
