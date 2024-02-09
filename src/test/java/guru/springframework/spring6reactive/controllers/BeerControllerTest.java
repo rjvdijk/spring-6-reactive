@@ -34,7 +34,7 @@ class BeerControllerTest {
 
     @Test
     @Order(10)
-    void testGetByid() {
+    void testGetBeerByid() {
         webTestClient.get()
                 .uri(BeerController.BEER_PATH_ID, 1)
                 .exchange()
@@ -44,7 +44,7 @@ class BeerControllerTest {
     }
 
     @Test
-    void testGetByIdNotFound() {
+    void testGetBeerByIdNotFound() {
         webTestClient.get()
                 .uri(BeerController.BEER_PATH_ID, 999)
                 .exchange()
@@ -120,7 +120,7 @@ class BeerControllerTest {
     }
 
     @Test
-    void testPatchNotFound() {
+    void testPatchBeerNotFound() {
         webTestClient.patch()
                 .uri(BeerController.BEER_PATH_ID, 999)
                 .body(Mono.just(getTestBeerDTO()), BeerDTO.class)
@@ -139,7 +139,7 @@ class BeerControllerTest {
     }
 
     @Test
-    void testDeleteNotFound() {
+    void testDeleteBeerNotFound() {
         webTestClient.delete()
                 .uri(BeerController.BEER_PATH_ID, 999)
                 .exchange()
