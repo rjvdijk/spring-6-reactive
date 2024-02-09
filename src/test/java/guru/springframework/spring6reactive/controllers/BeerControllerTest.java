@@ -138,6 +138,14 @@ class BeerControllerTest {
                 .expectStatus().isNoContent();
     }
 
+    @Test
+    void testDeleteNotFound() {
+        webTestClient.delete()
+                .uri(BeerController.BEER_PATH_ID, 999)
+                .exchange()
+                .expectStatus().isNotFound();
+    }
+
     private BeerDTO getTestBeerDTO() {
         return BeerDTO.builder()
                 .beerName("Space Dust")
